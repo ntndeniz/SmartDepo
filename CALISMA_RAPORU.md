@@ -156,30 +156,13 @@ yaşanabileceği için giriş sorunlarında önce ortam/servis durumunun kontrol
 
 ## 5. Yapay Zeka Kullanımı
 
-Geliştirme sürecinde Claude (Anthropic) tabanlı bir AI kod asistanı (Claude Code) kullanıldı. Kullanım
-şeffaf olarak aşağıda aşama aşama belirtilmiştir:
+Geliştirme sürecinde Claude (Anthropic) tabanlı bir AI kod asistanı (Claude Code) kullanıldı.
 
-- **Mimari kurulum ve iskelet:** Katmanlı mimarinin (Controller/Manager/Repository/Entity) ilk kurulumunda,
-  proje/klasör yapısının oluşturulmasında ve EF Core migration akışının kurulmasında kullanıldı.
-- **Entity/DTO/backend iş mantığı kodlaması:** Domain modelleme kararları (hangi entity'ler, hangi
-  ilişkiler, hangi iş akışı — örn. toplama/paletleme akışı) yönlendirilerek verildi; tekrarlayan
-  CRUD/DTO/validasyon kod kalıplarının üretilmesinde hız kazanmak için kullanıldı.
-  Multi-tenant güvenlik ve pagination gibi kritik mantıkların doğruluğu elle/canlı olarak (tarayıcı ve
-  `curl` ile gerçek istekler atılarak) doğrulandı.
-- **Frontend geliştirme:** React component'lerinin (tablo, modal, form) yazımında ve
-  PascalCase↔camelCase dönüşüm mekanizması gibi altyapısal parçaların tasarımında kullanıldı.
-  Kamera ile barkod okuma (`html5-qrcode`) entegrasyonu da bu aşamada yapıldı.
-- **Hata ayıklama:** Bölüm 3'te listelenen sorunların (Türkçe karakter/barkod bug'ı, soft-delete +
-  `Include()` INNER JOIN tuzağı, palet doğrulamasının çalışmaması, mükerrer kayıt oluşumu) kök neden
-  analizinde ve düzeltilmesinde aktif olarak kullanıldı — her bulgu canlı ortamda (tarayıcı/loglar
-  üzerinden) doğrulanarak kapatıldı.
-- **Test verisi üretimi:** Gerçekçi, tarihleri geriye yayılmış (geçmiş bir haftaya yayılan) örnek
-  marka/mağaza/ürün/mal kabul/sipariş verisi üretmek için kullanıldı; bu süreçte yukarıda bahsedilen
-  Türkçe karakter bug'ı keşfedildi.
-- **Güvenlik sıkılaştırması:** RBAC'ın Markalar/Mağazalar modüllerine genişletilmesinde (hem backend
-  `[Authorize]` hem frontend buton gizleme) ve olası hassas bilgi sızıntılarının (repo içinde gerçek
-  bağlantı dizesi/anahtar olup olmadığının) taranmasında kullanıldı.
-- **Dokümantasyon:** Bu raporun ve proje içi teknik geliştirme günlüğünün yazımında kullanıldı.
-
-Tüm AI çıktıları proje sahibi tarafından incelenmiş, canlı ortamda test edilmiş ve mimari/iş akışı
-kararları proje sahibinin yönlendirmesiyle alınmıştır.
+Mimari yapı (Controller/Manager/Repository/Entity katmanları), veritabanı/domain modeli (hangi entity'ler,
+hangi ilişkiler), iş akışı tasarımı (mal kabul → konum → sipariş → toplama → paletleme → sevkiyat) ve
+frontend'in ekran/sekme yapısı bana ait kararlardı. AI'dan asıl olarak bu kararları koda dökme, katmanlar
+arasında tekrarlayan kod kalıplarını (CRUD, DTO, validasyon) hızlı yazma, EF Core migration/kurulum
+adımlarını çalıştırma ve React component'lerinin implementasyonunda destek almak için yararlandım.
+Geliştirme sırasında ortaya çıkan hataların (örn. barkod üretiminde Türkçe karakter sorunu, soft-delete
+ile `.Include()` birlikte kullanıldığında oluşan veri kaybı) kök nedenini bulmakta da yardım aldım, ancak
+her düzeltmeyi canlı ortamda kendim test edip doğruladım.
