@@ -1,8 +1,6 @@
 import axios from 'axios';
 
-// Netlify/prod ortamında VITE_API_URL env değişkeniyle geçersiz kılınır (bkz. netlify.toml, README.md).
-// Yerel geliştirmede .env dosyası yoksa localhost:5200'e düşer.
-export const API_BASE_URL = import.meta.env.VITE_API_URL ?? 'http://localhost:5200/api';
+export const API_BASE_URL = 'http://localhost:5200/api';
 
 // Backend PascalCase döner; frontend camelCase kullanır (kural 3.7).
 // İstek gövdeleri PascalCase'e, yanıtlar camelCase'e çevrilir.

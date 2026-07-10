@@ -77,18 +77,10 @@ builder.Services.AddAuthentication(options =>
 });
 builder.Services.AddAuthorization();
 
-// Prod origin'leri appsettings/ortam değişkeninden gelir (örn. Netlify domaini);
-// yerel geliştirme portları her zaman izinli kalır. Bkz. README.md "Deploy" bölümü.
-var configuredOrigins = builder.Configuration.GetSection("Cors:AllowedOrigins").Get<string[]>() ?? Array.Empty<string>();
-var allowedOrigins = new[] { "http://localhost:5173", "http://localhost:3000" }
-    .Concat(configuredOrigins)
-    .Distinct()
-    .ToArray();
-
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("Frontend", policy =>
-        policy.WithOrigins(allowedOrigins)
+        policy.WithOrigins("http://localhost:5173", "http://localhost:3000")
               .AllowAnyHeader()
               .AllowAnyMethod());
 });

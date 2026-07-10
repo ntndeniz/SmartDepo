@@ -42,32 +42,15 @@ dotnet run --urls http://localhost:5200
 ```bash
 cd frontend
 npm install
-cp .env.example .env   # gerekirse VITE_API_URL'i düzenleyin
 npm run dev
 ```
 
 Varsayılan giriş bilgileri (ilk migration ile seed edilir): `CompanyId=demo-sirket`, `Kullanıcı Adı=admin`,
 `Şifre=123` — **production'a almadan önce mutlaka değiştirin.**
 
-## Deploy
+## Ekran Görüntüleri
 
-Bu bir tam-yığın (full-stack) uygulama olduğu için **frontend ve backend ayrı yerlerde barınır**:
-
-### Frontend → Netlify
-Repo kökünde `netlify.toml` hazır (base: `frontend`, build: `npm run build`, publish: `dist`, SPA
-redirect kuralı dahil). Netlify'de yapmanız gereken tek şey: proje ayarlarından
-**Environment variables** kısmına `VITE_API_URL` değişkenini, aşağıdaki backend'in gerçek HTTPS
-adresiyle eklemek (örn. `https://sizin-backend-adresiniz.com/api`).
-
-### Backend → Netlify'de ÇALIŞMAZ, ayrı bir sunucu gerekir
-Netlify yalnızca statik dosya barındırır; .NET API'yi ve MS SQL Server'ı çalıştıramaz. Backend için
-alternatifler: Azure App Service + Azure SQL, Railway, Render, Fly.io. Nereye alırsanız alın:
-1. `ConnectionStrings__DefaultConnection` ve `Jwt__Key` ortam değişkeni olarak tanımlanmalı.
-2. `Cors:AllowedOrigins` ortam değişkeni/appsettings'e Netlify domaininiz eklenmeli
-   (örn. `Cors__AllowedOrigins__0=https://sizin-site.netlify.app`) — aksi halde tarayıcı CORS
-   hatası verir.
-3. Backend HTTPS üzerinden yayınlanmalı (Netlify sayfası HTTPS olduğundan, HTTP bir API'ye istek
-   tarayıcı tarafından engellenir — "mixed content").
+<!-- Uygulama ekranlarının görüntüleri ve açıklamaları buraya eklenecek. -->
 
 ## Klasör Yapısı
 
