@@ -50,7 +50,68 @@ Varsayılan giriş bilgileri (ilk migration ile seed edilir): `CompanyId=demo-si
 
 ## Ekran Görüntüleri
 
-<!-- Uygulama ekranlarının görüntüleri ve açıklamaları buraya eklenecek. -->
+### Giriş
+Çok kiracılı (multi-tenant) sisteme `CompanyId`, kullanıcı adı ve şifre ile giriş. Kimlik JWT ile doğrulanır,
+şirket kimliği token'dan çıkarılır — client'tan gelen değere hiçbir zaman güvenilmez.
+
+![Giriş ekranı](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.29.16.png)
+
+### Mal Kabul
+Depoya gelen ürünlerin barkod okutularak kayıt altına alındığı ekran. Liste varsayılan olarak **sadece
+bugünün** kayıtlarını gösterir, tarih aralığı genişletilebilir.
+
+![Mal Kabul listesi](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.29.51.png)
+
+Barkod okutuldukça (kamera veya harici okuyucu ile) aynı ürünün kalem sayısı otomatik artan sihirbaz akışı:
+
+![Mal Kabul Sihirbazı](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.30.09.png)
+
+### Konum ve Stok
+Depo, koridor → bölge → raf hiyerarşisiyle görsel olarak haritalanır; dolu/boş raf durumu renkle ayırt edilir.
+Aynı ekranda stoktaki tüm koliler (rafa yerleştirilmiş veya henüz stokta bekleyen) listelenir.
+
+![Görsel depo haritası](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.30.21.png)
+
+![Stoktaki koliler tablosu](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.30.35.png)
+
+### Mağaza Siparişleri
+Mağazalardan gelen siparişler; elle girilebilir ya da mağazanın gönderdiği PDF sipariş formu otomatik
+ayrıştırılarak (barkod/miktar satırları okunarak) oluşturulabilir.
+
+![Siparişler listesi](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.30.46.png)
+
+![Yeni mağaza siparişi formu](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.30.57.png)
+
+### Sevkiyat ve Paletleme
+Aktif toplama (picking) işleri burada yönetilir — FIFO mantığıyla önce raftaki, sonra stoktaki kolilerden
+toplanır. Kapatılan koliler "Paletlenmemiş Koliler" listesine düşer; aynı mağazaya ait koliler seçilip tek
+palette birleştirilir ve palet durumu (Hazırlanıyor → Sevke Hazır → Sevk Edildi) takip edilir.
+
+![Sevkiyat ve paletleme ekranı](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.31.06.png)
+
+![Oluşturulan paletler listesi](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.31.15.png)
+
+### Raporlama
+Mal kabul ve sevkiyat hareketleri için haftalık CSV raporları arka planda otomatik üretilir, buradan
+indirilebilir.
+
+![Raporlar listesi](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.31.23.png)
+
+### Firma Ayarları
+Depo boyutu (koridor/bölge/raf sayısı), markalar ve mağazalar tek bir "Ayarlar" sekmesi altında yönetilir.
+
+![Depo boyutu ayarı](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.31.32.png)
+
+![Markalar yönetimi](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.31.42.png)
+
+![Mağazalar yönetimi](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.31.50.png)
+
+### Kullanıcı Yönetimi (RBAC)
+Admin, Personel (Staff) rolündeki kullanıcıları ekleyip yönetebilir. Personel rolü Markalar/Mağazalar gibi
+yönetimsel ekranları sadece görüntüleyebilir, değişiklik yapamaz — bu kısıtlama hem frontend'de (butonlar
+gizlenir) hem backend'de (`[Authorize(Roles = "Admin")]`) uygulanır.
+
+![Kullanıcı yönetimi](SmartDepoImage/Ekran%20Resmi%202026-07-10%2017.32.13.png)
 
 ## Klasör Yapısı
 
