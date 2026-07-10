@@ -33,6 +33,6 @@ frontend/.env.*
 .claude/
 
 # İç kullanım için geliştirme günlükleri — GitHub'da görünmemeli
+# (CALISMA_RAPORU.md burada YOK — görev tanımının zorunlu kıldığı resmi teslim dosyası, bilinçli olarak takip ediliyor)
 PROJE_TALIMATLARI.md
-CALISMA_RAPORU.md
 TEST_RAPORU.md
