@@ -1,0 +1,38 @@
+# --- .NET / Backend ---
+AkilliDepo.Api/bin/
+AkilliDepo.Api/obj/
+*.user
+.vs/
+
+# Gerçek connection string / JWT key BURADA DEĞİL — dotnet user-secrets içinde tutulur
+# (appsettings.json'daki alanlar bilinçli olarak boş bırakılmıştır, bkz. README.md)
+appsettings.Local.json
+appsettings.*.local.json
+
+# --- Node / Frontend ---
+frontend/node_modules/
+frontend/dist/
+frontend/dist-ssr/
+frontend/*.local
+frontend/.env
+frontend/.env.*
+!frontend/.env.example
+
+# --- IDE / OS ---
+.DS_Store
+**/.DS_Store
+.vscode/*
+!.vscode/extensions.json
+.idea/
+
+# --- Diğer ---
+*.log
+/private/
+
+# Claude Code oturum/araç yapılandırması — proje kodunun parçası değil, paylaşılmaz
+.claude/
+
+# İç kullanım için geliştirme günlükleri — GitHub'da görünmemeli
+PROJE_TALIMATLARI.md
+CALISMA_RAPORU.md
+TEST_RAPORU.md
